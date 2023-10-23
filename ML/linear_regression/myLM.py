@@ -8,20 +8,35 @@ class MultipleLinearRegression:
         self.intercept_ = 1
 
     def forward(self, X):
+        """
+
+        Parameters
+        ----------
+        X : array
+            input data
+            (number of input data, number of feature)
+
+        Returns
+        -------
+        _type_
+            _description_
+        """
         return X @ self.coef_ + self.intercept_  # (N,1)
 
     def get_gradient(self, X, Y):
         w_gradient = list()
 
+        # 가중치 미분
         for i in range(X.shape[1]):  # 2
             gradient = (self.forward(X) - Y.reshape(len(X), -1)) * X[:, i].reshape(
                 len(X), -1
             )
             w_gradient.append(gradient.sum() / len(X))
 
-        b_gradient = (self.forward(X) - Y.reshape(len(X), -1)).sum() / len(X)
-
         w_gradient = np.array(w_gradient).reshape(X.shape[1], -1)
+
+        # 편향 미분
+        b_gradient = (self.forward(X) - Y.reshape(len(X), -1)).sum() / len(X)
 
         return w_gradient, b_gradient
 
