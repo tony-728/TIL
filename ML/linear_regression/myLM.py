@@ -26,7 +26,7 @@ class MultipleLinearRegression:
         return w_gradient, b_gradient
 
     def fit(self, X, y, learning_rate=0.001, epoch=10000):
-        self.coef_ = np.ones((len(X), -1))
+        self.coef_ = np.ones((X.shape[1], 1))
 
         for _ in range(epoch):
             w_gradient, b_gradient = self.get_gradient(X, y)
@@ -70,7 +70,7 @@ column = [
     "LSTAT",
     "MEDV",
 ]
-data = pd.read_csv("housing.csv", names=column)
+data = pd.read_csv("ML\\linear_regression\\housing.csv", names=column)
 df = data[["RM", "LSTAT", "MEDV"]]
 
 df = standardize(df)
